@@ -1,3 +1,4 @@
+//use template to define a filter for elements in vector
 #include <vector>
 #include <iostream>
 #include <functional>  //less, greater
