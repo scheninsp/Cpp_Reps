@@ -1,5 +1,4 @@
 //longest common sequence
-//question at: https://www.geeksforgeeks.org/longest-common-subsequence-dp-4/
 
 //sample input:
 //abcdgh
