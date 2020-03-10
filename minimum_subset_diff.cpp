@@ -21,6 +21,10 @@ short readFile(vector<vector<int>> &elements) {
 	short errorcode = 0;
 
 	ifstream frd("./input.txt");   //format: sum, elem1, elem2 ... elemN
+	if (!frd) {
+		return -1;
+	}
+
 	const int maxLine = 256;
 	char buf[maxLine] = { 0 };
 	char* tmp;
