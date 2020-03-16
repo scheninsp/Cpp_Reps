@@ -9,21 +9,21 @@ using namespace std;
 class LRUCache {
 private:
 	int capacity;
-	list<pair<int, int>> counts;  //pair<key, val>, back is the least recently used
-	unordered_map<int, list<pair<int, int>>::iterator> elems;
+	list<pair<int, int>> queue;  //pair<key, val>, back is the least recently used
+	unordered_map<int, list<pair<int, int>>::iterator> elems;  //save key's positions in queue
 
 public:
 	LRUCache(int len) : capacity(len) {}
 
 	void put(int key, int val) {
 		if (elems.find(key) != elems.end())
-			counts.erase(elems[key]);
+			queue.erase(elems[key]);
 		else if(elems.size()>=capacity){
-			elems.erase(counts.back().first);
-			counts.pop_back();
+			elems.erase(queue.back().first);
+			queue.pop_back();
 		}
-		counts.push_front({ key, val });
-		elems[key] = counts.begin();
+		queue.push_front({ key, val });
+		elems[key] = queue.begin();
 	}
 
 	int get(int key) {
@@ -34,6 +34,9 @@ public:
 		return -1; //not found, can create new page and put
 	}
 
+	int getMostRecent() {
+		return queue.front().second;
+	}
 };
 
 int main() {
@@ -43,6 +46,9 @@ int main() {
 	lru.put(3, 3);
 	lru.put(4, 4);
 	cout << "get 2: " << lru.get(2) << endl; 
+	cout << "most recently visited: " << lru.getMostRecent() << endl;
+	cout << "get 4: " << lru.get(4) << endl;
+	cout << "most recently visited: " << lru.getMostRecent() << endl;
 
 	getchar();
 
