@@ -1,4 +1,4 @@
-//heap sort
+//template binary tree, for implementation see red-black tree
 #define _CRT_SECURE_NO_WARNINGS
 
 #include<fstream>
