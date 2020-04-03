@@ -52,7 +52,7 @@ public:
 };
 
 template<typename T>
-std::shared_ptr<Matrix<T>> readMatrix(std::string filename) {
+static std::shared_ptr<Matrix<T>> readMatrix(std::string filename) {
 
 	std::ifstream ifs(filename);
 	const int maxLine = 256;
@@ -79,4 +79,44 @@ std::shared_ptr<Matrix<T>> readMatrix(std::string filename) {
 	}
 
 	return pmat;
+};
+
+template<typename T> 
+static int findIslands(std::shared_ptr<Matrix<T>> pmat) {
+	
+	int cntIslands = 0;
+	for (int i = 0; i < pmat->size(); i++) {
+		for (int j = 0; j < pmat->size(); j++) {
+			if (pmat->elemAt<T>(i, j) == 1) {
+				cntIslands++;
+				dfs_setzero(i, j, pmat);
+			}
+		}
+	}
+	return cntIslands;
+};
+
+template<typename T>
+static void dfs_setzero(int row, int col, std::shared_ptr<Matrix<T>> pmat) {
+	if (row+1<pmat->size() && pmat->elemAt<T>(row + 1, col) == 1) {
+		row++;
+		pmat->elemAt<T>(row, col) = 0;
+		dfs_setzero(row, col, pmat);
+	}
+	if (row-1>=0 && pmat->elemAt<T>(row - 1, col) == 1) {
+		row--;
+		pmat->elemAt<T>(row, col) = 0;
+		dfs_setzero(row, col, pmat);
+	}
+	if (col + 1 < pmat->size() && pmat->elemAt<T>(row, col+1) == 1) {
+		col++;
+		pmat->elemAt<T>(row, col) = 0;
+		dfs_setzero(row, col, pmat);
+	}
+	if (col - 1 >= 0 && pmat->elemAt<T>(row, col - 1) == 1) {
+		col--;
+		pmat->elemAt<T>(row, col) = 0;
+		dfs_setzero(row, col, pmat);
+	}
+	return;
 };

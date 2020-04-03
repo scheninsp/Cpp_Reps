@@ -1,4 +1,5 @@
 //given a 0-1 matrix, 0 for water, output number of all islands
+// diagnals are not connected
 
 /*
 input:
@@ -19,6 +20,9 @@ int main() {
 	shared_ptr<Matrix<int>> pmat = readMatrix<int>(filename);
 
 	pmat->print();
+
+	int nIsland = findIslands<int>(pmat);
+	cout << "nIsland :" << nIsland << endl;
 
 	getchar();
 	return 0;
