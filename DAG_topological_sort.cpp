@@ -94,7 +94,7 @@ public:
 
 };
 
-int main2() {
+int main() {
 	Graph g(6);
 	g.addEdge(5,2);
 	g.addEdge(5,0);
