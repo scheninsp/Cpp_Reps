@@ -1,3 +1,11 @@
+//toposort
+//output:
+//4 5 0 2 3 1 
+//4 5 2 0 3 1
+//...
+//5 4 2 3 0 1
+//5 4 2 3 1 0
+
 #include<iostream>
 #include<list>
 #include<vector>
@@ -20,6 +28,10 @@ public:
 		for (int i = 0; i < nv; i++)
 			indegree.push_back(0);
 	};
+
+	~Graph() {
+		delete[] adj;
+	}
 
 	void addEdge(int v, int w) {
 		adj[v].push_back(w);
@@ -61,7 +73,7 @@ public:
 		}
 
 		if (!flag) {
-			for (int i = 0; i < res.size(); i++)
+			for (unsigned int i = 0; i < res.size(); i++)
 				cout << res[i] << " ";
 			cout << endl;
 		}
@@ -81,7 +93,7 @@ public:
 
 };
 
-int main() {
+int main2() {
 	Graph g(6);
 	g.addEdge(5,2);
 	g.addEdge(5,0);
