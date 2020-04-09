@@ -1,10 +1,6 @@
 //toposort
 //output:
 //4 5 0 2 3 1 
-//4 5 2 0 3 1
-//...
-//5 4 2 3 0 1
-//5 4 2 3 1 0
 
 #include<iostream>
 #include<list>
@@ -49,6 +45,7 @@ public:
 		res.push_back(src);
 	}
 
+	//return only one possibility of toposort
 	void topoSort_dfs() {
 		//find zero preceder vertex
 		int* indegree = new int[nv];
@@ -75,15 +72,15 @@ public:
 			src_vec.pop_back();
 
 			topoSortUtil_dfs(src, visited, res);
-
-			while (!res.empty()) {
-				int tmp = res.back();
-				res.pop_back();
-				visited[tmp] = false;
-				cout << tmp << " ";
-			}
-			cout << endl;
 		}
+
+		while (!res.empty()) {
+			int tmp = res.back();
+			res.pop_back();
+			visited[tmp] = false;
+			cout << tmp << " ";
+		}
+		cout << endl;
 
 		delete[] visited;
 		delete[] indegree;

@@ -42,6 +42,7 @@ public:
 
 	//topological sort
 	// a vertex u precedes v if all directed edge uv has u->v
+	// return all possibilities of toposort
 	void topoSortAllUtil(vector<int>& res, bool visited[]) {
 		
 		bool flag = false;
