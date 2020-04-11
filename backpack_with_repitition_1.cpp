@@ -99,7 +99,7 @@ bool printSubsetRec(const vector<int> v, int lastElem, int target_sum, bool** co
 	return false;
 }
 
-int main() {
+int main2() {
 	vector<vector<int>> elements;
 
 	short errorcode = readFile(elements);
@@ -158,4 +158,5 @@ int main() {
 		cout << "Task" << iTask << " finished" << endl;
 		getchar();
 	}
+	return 0;
 };
