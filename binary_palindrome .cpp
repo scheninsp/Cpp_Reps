@@ -47,5 +47,7 @@ int main()
 { 
     int n = 10, k = 4; 
     binary_palindrome(n, k); 
+	
+	getchar();
     return 0; 
 } 
