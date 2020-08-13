@@ -103,7 +103,7 @@ vector<int> threeSum_without_replacement_faster(vector<int> &nums, int target) {
 		map_originalIndx_sortedIndx.push_back(iter->second);
 	}
 	
-	sort(nums.begin(), nums.end());
+	sort(nums.begin(), nums.end()); //rising
 	for (int i = 0; i < nums.size(); i++) {
 		int j = i + 1;
 		int k = nums.size() - 1;
