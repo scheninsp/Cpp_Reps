@@ -188,15 +188,11 @@ public:
 	Node<T>* parent;
 	int rank;
 	Node<T>* nextChild;
-	Node<T>* nextSibling;
+	Node<T>* nextSibling;  //for last-order traverse in lcaWalk
 	Node<T>* ancestor;
 
 	NodeInfo() :color(WHITE), parent(nullptr), rank(0),
 		nextChild(nullptr), nextSibling(nullptr), ancestor(nullptr) {};
-
-	explicit NodeInfo(Node<T>* p) :color(WHITE), parent(nullptr), rank(0),
-		nextChild(nullptr), nextSibling(nullptr), ancestor(nullptr) {};
-
 };
 
 template<typename T>
@@ -248,7 +244,7 @@ void initSet(map_T<T> &subsets, Node<T>* u) {
 
 	initSet(subsets, u->lchild);
 
-	NodeInfo<T> nodeInfo(u);
+	NodeInfo<T> nodeInfo;
 	subsets.insert(pair<Node<T>*, NodeInfo<T>>(u, nodeInfo));
 
 	if (u->lchild != nullptr && u->rchild != nullptr) {
@@ -293,15 +289,18 @@ void lcaWalk(Node<T>* u, vector<Query<T>> q, map_T<T> &subsets) {
 	while (child != nullptr) {
 		lcaWalk(child, q, subsets);
 		unionSet(subsets, u, child);
+		
+		//adjust ancestor to father node before walking to child's sibling
 		subsets[findSet(subsets, u)].ancestor = u;
 		child = subsets[child].nextSibling;
 	}
 
 	subsets[u].color = BLACK;
-
+	//at this time, all nodes at child tree of u are visited
+	
 	for (unsigned int i = 0; i < q.size(); i++) {
 		if (u == q[i].L) {
-			if (subsets[q[i].R].color == BLACK) {
+			if (subsets[q[i].R].color == BLACK) { //q[i].R's ancestor is the LCA of (u , q[i].R)
 				cout << subsets[findSet(subsets, q[i].R)].ancestor->val[0] << ":";
 				cout << "(" << q[i].L->val[0] << ", " << q[i].R->val[0] << ")" << endl;
 			}
