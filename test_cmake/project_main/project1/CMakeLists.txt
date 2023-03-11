@@ -9,10 +9,10 @@ set(SOURCES
 
 include_directories(Include)
 
-file(GLOB_RECURSE PROJECT1_HEADERS Include/**.h)
-source_group("Headers" FILES ${PROJECT1_HEADERS})
+file(GLOB_RECURSE PROJECT_HEADERS Include/**.h)
+source_group("Headers" FILES ${PROJECT_HEADERS})
 
-add_library(project1 ${SOURCES} ${PROJECT1_HEADERS})
+add_library(project1 STATIC ${SOURCES} ${PROJECT_HEADERS})
 
 set(BUILD_FLAGS "-DMY_MACRO" )
 set_target_properties(project1 PROPERTIES COMPILE_FLAGS ${BUILD_FLAGS})
